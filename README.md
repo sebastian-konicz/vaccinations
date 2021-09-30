@@ -2,11 +2,11 @@
 SA small project which aim is to present on a interactive map of COVID vaccination percentage in Poland (broken down by municipality)
 
 ## Interctive map
-http://unemployment-map.herokuapp.com/
+http://covid-vaccinations.herokuapp.com/
 
 ## Data sources
-1. [The Central Statistical Office unemployment data for April 2021](https://stat.gov.pl/obszary-tematyczne/rynek-pracy/bezrobocie-rejestrowane/bezrobotni-zarejestrowani-i-stopa-bezrobocia-stan-w-koncu-kwietnia-2021-r-,2,105.html)
-2. [The Main Office of Geodesy and Cartography regional division of the country into counties (shapefile)](http://www.gugik.gov.pl/pzgik/dane-bez-oplat/dane-z-panstwowego-rejestru-granic-i-powierzchni-jednostek-podzialow-terytorialnych-kraju-prg)
+1. [Official COVID vaccination data from "Open data" portal](https://dane.gov.pl/pl/dataset/2476,odsetek-osob-zaszczepionych-przeciwko-covid19-w-gm?fbclid=IwAR059OLAARQT9Umr02jVnfn9abacBD0ZF12fNyHH7m1hHXUswt-tufdMDsA)
+2. [The Main Office of Geodesy and Cartography regional division of the country into municipalities (shapefile)](http://www.gugik.gov.pl/pzgik/dane-bez-oplat/dane-z-panstwowego-rejestru-granic-i-powierzchni-jednostek-podzialow-terytorialnych-kraju-prg)
 
 ## Inspiration articles:
 1. [Folium map tutorial](https://python-visualization.github.io/folium/installing.html)
@@ -25,15 +25,15 @@ Sebastian Konicz - sebastian.konicz@gmail.com
 	│   │
     │   ├── geo                             <- geospatial data
     │   │
-    │   ├── interim                         <- intermediate data that has been transformed.
+    │   ├── interim                         <- intermediate data that has been transformed
     │   │
-    │   └── raw                             <- the original, immutable data dump.
+    │   └── raw                             <- the original, immutable data dump
     │
-    ├── src                             <- source code for use in this project.
+    ├── src                             <- source code for use in this project
     │   │
-    │   ├── 01_data_load.py                 <- transforms oficial unemployment data to datafram
+    │   ├── 01_data_load.py                 <- transforms oficial vaccination data to datafram
     │   │
-    │   └── 02_map.py                       <- crates map besed on unemplyment and geospacial data
+    │   └── 02_map.py                       <- crates map besed on vaccination and geospacial data
 	│
     ├── templates                       <- folder with template sites for flask
 	│
