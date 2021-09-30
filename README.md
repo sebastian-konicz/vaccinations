@@ -1,6 +1,8 @@
 # vaccinations
 SA small project which aim is to present on a interactive map of COVID vaccination percentage in Poland (broken down by municipality)
 
+![vaccinations_map](images/vacc_map.png)
+
 ## Interctive map
 http://covid-vaccinations.herokuapp.com/
 
