@@ -17,7 +17,7 @@ def main():
     project_dir = str(Path(__file__).resolve().parents[1])
 
     # loading map data
-    geo_path = r'\data\geo\admin\Powiaty.shp'
+    geo_path = r'\data\geo\admin\Gminy.shp'
     map = gpd.read_file(project_dir + geo_path)
 
     # restricting dataframe
@@ -25,14 +25,13 @@ def main():
     map['JPT_KOD_JE'] = map['JPT_KOD_JE'].apply(lambda x: str(x))
 
     # loading unemployment data
-    data_path = r'\data\interim\unemployment_202104.xlsx'
+    data_path = r'\data\interim\vaccinations_municipality_20210929.xlsx'
     data = pd.read_excel(project_dir + data_path)
 
     # restricting dataframe
-    data = data[['teryt', 'pow_name', 'unempl_%']]
+    data = data[['teryt', 'municipality', '%_vaccinated']]
 
-    # transforming teryt column
-    data['teryt'] = data['teryt'].apply(lambda x: '0' + str(x) if len(str(x)) < 4 else str(x))
+    data['teryt'] = data['teryt'].apply(lambda x: str(x).zfill(7))
 
     # merging dataframes
     map = map.merge(data, left_on='JPT_KOD_JE', right_on='teryt')
@@ -49,14 +48,14 @@ def main():
     folium.Choropleth(geo_data=map_geo,
                       name='choropleth',
                       data=data,
-                      columns=['teryt', 'unempl_%'],
+                      columns=['teryt', '%_vaccinated'],
                       key_on='feature.properties.JPT_KOD_JE',
                       bins=9,
-                      fill_color='YlOrRd',
+                      fill_color='YlGnBu', # ‘BuGn’, ‘BuPu’, ‘GnBu’, ‘OrRd’, ‘PuBu’, ‘PuBuGn’, ‘PuRd’, ‘RdPu’, ‘YlGn’, ‘YlGnBu’, ‘YlOrBr’, and ‘YlOrRd’
                       fill_opacity=0.7,
                       line_opacity=0.2,
                       highlight=True,
-                      legend_name="Stopa bezrobocia w procentach").add_to(map_graph)
+                      legend_name="Szczepienia w procentach").add_to(map_graph)
 
     # adding labels to map
     style_function = lambda x: {'fillColor': '#ffffff',
@@ -69,8 +68,8 @@ def main():
         style_function=style_function,
         control=False,
         tooltip=folium.features.GeoJsonTooltip(
-            fields=['pow_name', 'unempl_%'],
-            aliases=['nazwa', 'stopa bezrobocia (%)'],
+            fields=['municipality', '%_vaccinated'],
+            aliases=['nazwa', '%_zaszczepionych_pełną_dawką'],
             style=("background-color: white; color: #333333; font-family: arial; font-size: 12px; padding: 10px;")
         ),
     )
@@ -81,8 +80,8 @@ def main():
 
     # saving map
     print('saving map')
-    map_graph.save(project_dir + r'\data\final\unemployment_map.html')
-    map_graph.save(project_dir + r'\templates\unemployment_map.html')
+    map_graph.save(project_dir + r'\data\final\vaccination_map.html')
+    map_graph.save(project_dir + r'\templates\vaccination_map.html')
 
     # end time of program + duration
     end_time = time.time()
