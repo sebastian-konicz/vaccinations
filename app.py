@@ -13,7 +13,7 @@ server = app.server
 
 # # # # # DATA # # # # # #
 # loading dataframe - vaccinations
-data_vac_path = 'https://github.com/sebastian-konicz/covid-dashboard/raw/main/data/interim/vaccination_data/vaccinations_county_20211007.xlsx'
+data_vac_path = 'https://github.com/sebastian-konicz/vaccinations/raw/main/data/interim/vaccinations_county_20211007.xlsx'
 data_vac = pd.read_excel(data_vac_path, engine='openpyxl')
 
 # restricting dataframe
@@ -22,13 +22,13 @@ data_vac = data_vac[['teryt', 'powiat', '%_zaszczepieni']]
 data_vac['teryt'] = data_vac['teryt'].apply(lambda x: str(x).zfill(4))
 
 # loading dataframe - covid_cases
-data_cov_path = 'https://github.com/sebastian-konicz/covid-dashboard/raw/main/data/interim/elections/elections_county.xlsx'
-data_cov = pd.read_excel(data_cov_path, engine='openpyxl')
+data_elec_path = 'https://github.com/sebastian-konicz/vaccinations/raw/main/data/interim/elections_county.xlsx'
+data_elec = pd.read_excel(data_elec_path, engine='openpyxl')
 
 # restricting dataframe
-data_cov = data_cov[['teryt', 'powiat', '%_glosy']]
+data_elec = data_elec[['teryt', 'powiat', '%_glosy']]
 # reshaping teryt
-data_cov['teryt'] = data_cov['teryt'].apply(lambda x: str(x).zfill(4))
+data_elec['teryt'] = data_elec['teryt'].apply(lambda x: str(x).zfill(4))
 
 # loading geojson
 jsonurl = 'https://github.com/sebastian-konicz/covid-dashboard/raw/main/data/interim/geo/geo_county.geojson'
@@ -59,11 +59,11 @@ fig_vac.update_layout(margin={"r": 0, "t": 0, "l": 0, "b": 0})
 
 # # # # # # COVID CASES MAP # # # # # #
 # get the maximum value to cap displayed values - vaccinations
-max_log_cov = data_cov['%_glosy'].max()
-min_val_cov = data_cov['%_glosy'].min()
+max_log_cov = data_elec['%_glosy'].max()
+min_val_cov = data_elec['%_glosy'].min()
 max_val_cov = int(max_log_vac) + 1
 
-fig_cov = px.choropleth_mapbox(data_cov,
+fig_cov = px.choropleth_mapbox(data_elec,
                            geojson=geojson,
                            featureidkey='properties.JPT_KOD_JE',
                            locations='teryt',
