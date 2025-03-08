@@ -15,11 +15,11 @@ def main():
 
     # loading data
     # gettig the file with PNA data
-    data_path = r'\data\interim\elections\elections_county.xlsx'
+    data_path = r'\data\interim\elections_county.xlsx'
     data = pd.read_excel(project_dir + data_path)
 
      # loading dataframe - vaccinations
-    data_vac_path = 'https://github.com/sebastian-konicz/covid-dashboard/raw/main/data/interim/vaccination_data/vaccinations_county_20211003.xlsx'
+    data_vac_path = 'https://github.com/sebastian-konicz/covid-dashboard/raw/main/data/interim/vaccination_data/vaccinations_county_20211007.xlsx'
     data_vac = pd.read_excel(data_vac_path, engine='openpyxl')
 
         # restricting dataframe
